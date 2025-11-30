@@ -6,6 +6,8 @@ import { CaseStudies } from './components/CaseStudies';
 import { Pricing } from './components/Pricing';
 import { AiConsultant } from './components/AiConsultant';
 import { BarChart, Clock, TrendingUp, Users } from 'lucide-react';
+import { ModalProvider, useModal } from './context/ModalContext';
+import { BookingModal } from './components/BookingModal';
 
 const StatsSection: React.FC = () => (
   <section className="py-12 bg-white border-b border-slate-100">
@@ -86,9 +88,11 @@ const Footer: React.FC = () => (
   </footer>
 );
 
-const App: React.FC = () => {
+const MainContent: React.FC = () => {
+  const { openModal } = useModal();
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <>
       <Navbar />
       <Hero />
       <StatsSection />
@@ -103,7 +107,10 @@ const App: React.FC = () => {
             <p className="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
               80% of businesses haven't implemented simple automations that could save 20–40 hours every month. Don't be one of them.
             </p>
-            <button className="bg-white text-blue-700 hover:bg-slate-100 px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg">
+            <button 
+              onClick={openModal}
+              className="bg-white text-blue-700 hover:bg-slate-100 px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg transform hover:-translate-y-1"
+            >
               Start Your Transformation
             </button>
           </div>
@@ -114,7 +121,16 @@ const App: React.FC = () => {
       <Pricing />
       <Industries />
       <Footer />
-    </div>
+    </>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <ModalProvider>
+      <BookingModal />
+      <MainContent />
+    </ModalProvider>
   );
 };
 
