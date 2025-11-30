@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Zap } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { openModal } = useModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +31,10 @@ export const Navbar: React.FC = () => {
           <a href="#services" className="text-slate-600 hover:text-blue-600 font-medium text-sm transition-colors">Services</a>
           <a href="#pricing" className="text-slate-600 hover:text-blue-600 font-medium text-sm transition-colors">Pricing</a>
           <a href="#about" className="text-slate-600 hover:text-blue-600 font-medium text-sm transition-colors">About</a>
-          <button className="bg-slate-900 text-white px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-slate-800 transition-colors">
+          <button 
+            onClick={openModal}
+            className="bg-slate-900 text-white px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-slate-800 transition-colors"
+          >
             Book Call
           </button>
         </div>
@@ -46,7 +51,13 @@ export const Navbar: React.FC = () => {
           <a href="#" className="text-slate-700 font-medium py-2" onClick={() => setIsMobileMenuOpen(false)}>Home</a>
           <a href="#services" className="text-slate-700 font-medium py-2" onClick={() => setIsMobileMenuOpen(false)}>Services</a>
           <a href="#pricing" className="text-slate-700 font-medium py-2" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
-          <button className="bg-blue-600 text-white w-full py-3 rounded-lg font-semibold">
+          <button 
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              openModal();
+            }}
+            className="bg-blue-600 text-white w-full py-3 rounded-lg font-semibold"
+          >
             Book Consultation
           </button>
         </div>

@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Sparkles, Loader2, Send } from 'lucide-react';
 import { analyzeBusinessPainPoint } from '../services/geminiService';
 import { AiConsultationResponse } from '../types';
+import { useModal } from '../context/ModalContext';
 
 export const AiConsultant: React.FC = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<AiConsultationResponse | null>(null);
+  const { openModal } = useModal();
 
   const handleAnalyze = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,7 +98,12 @@ export const AiConsultant: React.FC = () => {
                     </div>
                   </div>
                   <div className="mt-4 text-center">
-                    <button className="text-sm text-blue-400 hover:text-blue-300 underline">Book a call to build this</button>
+                    <button 
+                      onClick={openModal}
+                      className="text-sm text-blue-400 hover:text-blue-300 underline"
+                    >
+                      Book a call to build this
+                    </button>
                   </div>
                 </div>
               )}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import { PricingTier } from '../types';
+import { useModal } from '../context/ModalContext';
 
 const tiers: PricingTier[] = [
   {
@@ -45,6 +46,8 @@ const tiers: PricingTier[] = [
 ];
 
 export const Pricing: React.FC = () => {
+  const { openModal } = useModal();
+
   return (
     <section id="pricing" className="py-20 bg-slate-50">
       <div className="container mx-auto px-4">
@@ -86,7 +89,9 @@ export const Pricing: React.FC = () => {
                 ))}
               </ul>
               
-              <button className={`w-full py-3 rounded-xl font-semibold transition-all ${
+              <button 
+                onClick={openModal}
+                className={`w-full py-3 rounded-xl font-semibold transition-all ${
                 tier.recommended 
                   ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-200' 
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
